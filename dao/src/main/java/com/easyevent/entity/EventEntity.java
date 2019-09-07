@@ -1,14 +1,22 @@
 package com.easyevent.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "events")
 public class EventEntity {
     @Id
@@ -35,15 +43,15 @@ public class EventEntity {
     private String expiresAt;
 
     @ManyToMany
-    @JoinTable (name="organizations_events",
-            joinColumns=@JoinColumn (name="event_id"),
-            inverseJoinColumns=@JoinColumn(name="organization_id"))
+    @JoinTable(name = "organizations_events",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "organization_id"))
     private List<OrganizationEntity> organizationEntities;
 
     @ManyToMany
-    @JoinTable (name="artists_events",
-            joinColumns=@JoinColumn (name="event_id"),
-            inverseJoinColumns=@JoinColumn(name="artist_id"))
+    @JoinTable(name = "artists_events",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
     private List<ArtistEntity> artistEntities;
 
     @Override
@@ -63,7 +71,31 @@ public class EventEntity {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(getId(), getName(), getStartDate(), getEndDate(), getDescription(), getCost(), getCreatedAt(), getExpiresAt());
     }
+
+    public List<UUID> getOrganizationIds(){
+        return getOrganizationEntities().stream()
+                .map(OrganizationEntity::getId)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getOrganizationNames(){
+        return getOrganizationEntities().stream()
+                .map(OrganizationEntity::getName)
+                .collect(Collectors.toList());
+    }
+
+    public List<UUID> getArtistIds(){
+        return getArtistEntities().stream()
+                .map(ArtistEntity::getId)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getArtistPseudonym(){
+        return getArtistEntities().stream()
+                .map(ArtistEntity::getPseudonym)
+                .collect(Collectors.toList());
+    }
+
 }

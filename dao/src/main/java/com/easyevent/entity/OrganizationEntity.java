@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "organizations")
@@ -45,7 +46,25 @@ public class OrganizationEntity extends UserEntity{
 
     @Override
     public int hashCode() {
-
         return Objects.hash(super.hashCode(), getId(), getName(), getType(), getDescription());
     }
+
+    @Builder(builderMethodName = "organizationBuilder")
+    public OrganizationEntity(UserEntity userEntity, String name, String type, String description, List<EventEntity> eventEntities) {
+        super(userEntity.getId(), userEntity.getLogin(), userEntity.getPassword(), userEntity.getEmail(), userEntity.getFirstName(), userEntity.getLastName(), userEntity.isRegistration(), userEntity.getRole(), userEntity.getPhone());
+        this.id = userEntity.getId();
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.eventEntities = eventEntities;
+    }
+
+    public List<Long> getEventIds(){
+        return getEventEntities().stream().map(EventEntity::getId).collect(Collectors.toList());
+    }
+
+    public List<String> getEventNames(){
+        return getEventEntities().stream().map(EventEntity::getName).collect(Collectors.toList());
+    }
+
 }

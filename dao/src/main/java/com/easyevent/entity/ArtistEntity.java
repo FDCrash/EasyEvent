@@ -3,9 +3,11 @@ package com.easyevent.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "artists")
@@ -29,8 +31,8 @@ public class ArtistEntity extends UserEntity{
             inverseJoinColumns=@JoinColumn(name="event_id"))
     private List<EventEntity> eventEntities;
 
-//    @OneToMany(mappedBy = "offer_id")
-//    private List<ArtistOfferEntity> artistOfferEntities;
+    @OneToMany(mappedBy = "artistEntity")
+    private List<ArtistOfferEntity> artistOfferEntities;
 
     @Override
     public boolean equals(Object o) {
@@ -47,5 +49,54 @@ public class ArtistEntity extends UserEntity{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), getId(), getPseudonym(), getType(), getDescription());
+    }
+
+    @Builder(builderMethodName = "artistBuilder")
+    public ArtistEntity(UserEntity userEntity, String pseudonym, String type, String description, List<EventEntity> eventEntities, List<ArtistOfferEntity> artistOfferEntities) {
+        super(userEntity.getId(), userEntity.getLogin(), userEntity.getPassword(), userEntity.getEmail(), userEntity.getFirstName(), userEntity.getLastName(), userEntity.isRegistration(), userEntity.getRole(), userEntity.getPhone());
+        this.id = userEntity.getId();
+        this.pseudonym = pseudonym;
+        this.type = type;
+        this.description = description;
+        this.eventEntities = eventEntities;
+        this.artistOfferEntities = artistOfferEntities;
+    }
+
+//    public UserEntity getUser(){
+//        return UserEntity.builder()
+//                .id(getId())
+//                .login(getLogin())
+//                .password(getPassword())
+//                .email(getEmail())
+//                .firstName(getFirstName())
+//                .lastName(getLastName())
+//                .registration(isRegistration())
+//                .role(getRole())
+//                .phone(getPhone())
+//                .build();
+//    }
+
+    public List<Long> getEventIds(){
+        return getEventEntities().stream()
+                .map(EventEntity::getId)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getEventNames(){
+        return getEventEntities().stream()
+                .map(EventEntity::getName)
+                .collect(Collectors.toList());
+    }
+
+    public  List<Long> getOfferIds(){
+        return getArtistOfferEntities().stream()
+                .map(ArtistOfferEntity::getId)
+                .collect(Collectors.toList());
+    }
+
+    public  List<String> getOfferNames(){
+        return getArtistOfferEntities().stream()
+                .map(ArtistOfferEntity::getName)
+                .collect(Collectors.toList());
     }
 }

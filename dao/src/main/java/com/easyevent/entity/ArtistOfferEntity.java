@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "artists_offers")
+@Builder
 public class ArtistOfferEntity {
 
     @Id
@@ -15,8 +16,13 @@ public class ArtistOfferEntity {
     @Column(name = "offer_id", unique = true, nullable = false)
     private long id;
 
+    private String name;
+
     private String description;
 
     private int cost;
 
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private ArtistEntity artistEntity;
 }

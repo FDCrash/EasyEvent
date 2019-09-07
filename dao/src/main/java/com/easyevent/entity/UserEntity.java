@@ -2,6 +2,7 @@ package com.easyevent.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -9,6 +10,8 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity {
@@ -43,4 +46,7 @@ public class UserEntity {
 
     private String phone;
 
+    public UserEntity getUser(){
+        return this;
+    }
 }
