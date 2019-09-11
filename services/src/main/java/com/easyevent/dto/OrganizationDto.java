@@ -23,7 +23,7 @@ public class OrganizationDto extends UserDto {
 
     private List<String> eventName;
 
-    @Builder(builderClassName = "OrganizationBuilder")
+    @Builder(builderMethodName = "organizationBuilder")
     public OrganizationDto(UserDto userDto, String name, String type, String description, List<Long> eventIds, List<String> eventName) {
         super(userDto.getId(), userDto.getLogin(), userDto.getPassword(), userDto.getEmail(), userDto.getFirstName(), userDto.getLastName(), userDto.isRegistration(), userDto.getRole(), userDto.getPhone());
         this.id = userDto.getId();

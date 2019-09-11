@@ -16,7 +16,7 @@ public class ArtistConverter {
     }
 
     public ArtistDto convert(ArtistEntity artistEntity) {
-        return ArtistDto.builder()
+        return ArtistDto.artistBuilder()
                 .userDto(userConverter.convert(artistEntity.getUser()))
                 .pseudonym(artistEntity.getPseudonym())
                 .type(artistEntity.getType())

@@ -15,7 +15,7 @@ public class OrganizationConverter {
     }
 
     public OrganizationDto convert(OrganizationEntity organizationEntity) {
-        return OrganizationDto.builder()
+        return OrganizationDto.organizationBuilder()
                 .userDto(userConverter.convert(organizationEntity.getUser()))
                 .name(organizationEntity.getName())
                 .type(organizationEntity.getType())

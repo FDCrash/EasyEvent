@@ -1,31 +1,49 @@
 package com.easyevent.services.implementation;
 
+import com.easyevent.converters.OrganizationConverter;
+import com.easyevent.dao.OrganizationRepository;
 import com.easyevent.dto.OrganizationDto;
 import com.easyevent.services.CrudService;
+import com.easyevent.services.UserCrud;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
-public class OrganizationService implements CrudService<OrganizationDto> {
+public class OrganizationService implements UserCrud<OrganizationDto> {
 
-    @Override
-    public long add(OrganizationDto organizationDto) {
-        return 0;
+    private OrganizationConverter organizationConverter;
+    private OrganizationRepository organizationRepository;
+
+    @Autowired
+    public OrganizationService(OrganizationConverter organizationConverter, OrganizationRepository organizationRepository){
+        this.organizationConverter = organizationConverter;
+        this.organizationRepository = organizationRepository;
     }
 
     @Override
-    public void delete(long id) {
+    public String add(OrganizationDto organizationDto) {
+        return organizationRepository.save(organizationConverter.convert(organizationDto)).toString();
+    }
 
+    @Override
+    public void delete(UUID id) {
+        organizationRepository.delete(id);
     }
 
     @Override
     public List<OrganizationDto> getAll() {
-        return null;
+        return StreamSupport.stream(organizationRepository.findAll().spliterator(), false)
+                .map(userEntity -> organizationConverter.convert(userEntity))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public OrganizationDto get(long id) {
-        return null;
+    public OrganizationDto get(UUID id) {
+        return organizationConverter.convert(organizationRepository.findOne(id));
     }
 }
