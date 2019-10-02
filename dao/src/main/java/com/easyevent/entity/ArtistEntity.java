@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Data
 public class ArtistEntity extends UserEntity{
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "artist_id",unique = true, nullable = false)
     private UUID id;
 
     @Column(unique = true)

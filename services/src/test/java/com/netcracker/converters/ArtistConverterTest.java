@@ -1,7 +1,7 @@
 package com.netcracker.converters;
 
 import com.easyevent.converters.ArtistConverter;
-import com.easyevent.dto.ArtistDto;
+import com.easyevent.dto.base.ArtistDto;
 import com.easyevent.entity.ArtistEntity;
 import com.netcracker.TestConfiguration;
 import org.junit.Before;

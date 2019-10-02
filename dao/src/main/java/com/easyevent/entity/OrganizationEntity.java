@@ -2,7 +2,6 @@ package com.easyevent.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,9 +13,9 @@ import java.util.stream.Collectors;
 @Table(name = "organizations")
 @Data
 @PrimaryKeyJoinColumn(name = "organization_id")
-public class OrganizationEntity extends UserEntity{
+public class OrganizationEntity extends UserEntity {
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "organization_id", unique = true, nullable = false)
     private UUID id;
 
     @Column(unique = true)
@@ -27,9 +26,9 @@ public class OrganizationEntity extends UserEntity{
     private String description;
 
     @ManyToMany
-    @JoinTable (name="organizations_events",
-            joinColumns=@JoinColumn (name="organization_id"),
-            inverseJoinColumns=@JoinColumn(name="event_id"))
+    @JoinTable(name = "organizations_events",
+            joinColumns = @JoinColumn(name = "organization_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
     private List<EventEntity> eventEntities;
 
     @Override
@@ -59,11 +58,11 @@ public class OrganizationEntity extends UserEntity{
         this.eventEntities = eventEntities;
     }
 
-    public List<Long> getEventIds(){
+    public List<Long> getEventIds() {
         return getEventEntities().stream().map(EventEntity::getId).collect(Collectors.toList());
     }
 
-    public List<String> getEventNames(){
+    public List<String> getEventNames() {
         return getEventEntities().stream().map(EventEntity::getName).collect(Collectors.toList());
     }
 

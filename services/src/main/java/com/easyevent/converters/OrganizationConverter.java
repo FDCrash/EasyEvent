@@ -1,6 +1,6 @@
 package com.easyevent.converters;
 
-import com.easyevent.dto.OrganizationDto;
+import com.easyevent.dto.base.OrganizationDto;
 import com.easyevent.entity.OrganizationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

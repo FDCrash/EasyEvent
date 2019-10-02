@@ -1,6 +1,6 @@
 package com.easyevent.converters;
 
-import com.easyevent.dto.ArtistDto;
+import com.easyevent.dto.base.ArtistDto;
 import com.easyevent.entity.ArtistEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

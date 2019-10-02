@@ -2,8 +2,7 @@ package com.easyevent.services.implementation;
 
 import com.easyevent.converters.ArtistConverter;
 import com.easyevent.dao.ArtistRepository;
-import com.easyevent.dto.ArtistDto;
-import com.easyevent.services.CrudService;
+import com.easyevent.dto.base.ArtistDto;
 import com.easyevent.services.UserCrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

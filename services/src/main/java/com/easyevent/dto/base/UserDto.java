@@ -1,5 +1,6 @@
-package com.easyevent.dto;
+package com.easyevent.dto.base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserDto {
 
+    @JsonIgnore
     private UUID id;
 
     private String login;
@@ -31,6 +33,7 @@ public class UserDto {
 
     private String phone;
 
+    @JsonIgnore
     public UserDto getUser(){
         return this;
     }

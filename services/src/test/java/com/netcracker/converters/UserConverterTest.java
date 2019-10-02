@@ -1,8 +1,8 @@
 package com.netcracker.converters;
 
 import com.easyevent.converters.UserConverter;
-import com.easyevent.dto.RoleDto;
-import com.easyevent.dto.UserDto;
+import com.easyevent.dto.base.RoleDto;
+import com.easyevent.dto.base.UserDto;
 import com.easyevent.entity.Role;
 import com.easyevent.entity.UserEntity;
 import com.netcracker.TestConfiguration;

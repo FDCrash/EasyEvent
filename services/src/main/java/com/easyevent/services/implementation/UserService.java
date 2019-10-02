@@ -2,7 +2,7 @@ package com.easyevent.services.implementation;
 
 import com.easyevent.converters.UserConverter;
 import com.easyevent.dao.UserRepository;
-import com.easyevent.dto.UserDto;
+import com.easyevent.dto.base.UserDto;
 import com.easyevent.services.UserCrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

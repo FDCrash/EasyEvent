@@ -2,8 +2,7 @@ package com.easyevent.services.implementation;
 
 import com.easyevent.converters.EventConverter;
 import com.easyevent.dao.EventRepository;
-import com.easyevent.dto.EventDto;
-import com.easyevent.services.CrudService;
+import com.easyevent.dto.base.EventDto;
 import com.easyevent.services.DocumentCrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.easyevent.dto;
+package com.easyevent.dto.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.easyevent.converters;
 
-import com.easyevent.dto.ArtistOfferDto;
+import com.easyevent.dto.base.ArtistOfferDto;
 import com.easyevent.entity.ArtistEntity;
 import com.easyevent.entity.ArtistOfferEntity;
 import com.easyevent.entity.UserEntity;
