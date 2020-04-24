@@ -19,14 +19,14 @@ public class ArtistService implements UserCrud<ArtistDto> {
     private ArtistRepository artistRepository;
 
     @Autowired
-    public ArtistService(ArtistConverter artistConverter, ArtistRepository artistRepository){
+    public ArtistService(ArtistConverter artistConverter, ArtistRepository artistRepository) {
         this.artistConverter = artistConverter;
         this.artistRepository = artistRepository;
     }
 
     @Override
     public String add(ArtistDto artistDto) {
-        return artistRepository.save(artistConverter.convert(artistDto)).toString();
+        return String.valueOf(artistRepository.save(artistConverter.convert(artistDto)).getId());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ArtistService implements UserCrud<ArtistDto> {
 
     @Override
     public List<ArtistDto> getAll() {
-        return StreamSupport.stream(artistRepository.findAll().spliterator(), false)
+        return artistRepository.findAll().stream()
                 .map(userEntity -> artistConverter.convert(userEntity))
                 .collect(Collectors.toList());
     }

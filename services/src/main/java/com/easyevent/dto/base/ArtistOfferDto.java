@@ -1,15 +1,21 @@
 package com.easyevent.dto.base;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ArtistOfferDto {
 
     private long id;
+
+    private String name;
 
     private String description;
 

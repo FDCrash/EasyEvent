@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Api
 @RestController
@@ -25,6 +27,14 @@ public class EventController {
     @Autowired
     public EventController(EventService eventService) {
         this.eventService = eventService;
+    }
+
+    @ApiOperation(value = "Add events", nickname = "EventController.addEvent")
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Events is adding")})
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addArtist(@RequestBody EventDto eventDto) {
+        Map id = Collections.singletonMap("id", eventService.add(eventDto));
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Gets all events", nickname = "EventController.getAllEvents")

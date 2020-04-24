@@ -1,7 +1,9 @@
 package com.easyevent.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Data
 @Table(name = "artists_offers")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ArtistOfferEntity {
 
     @Id

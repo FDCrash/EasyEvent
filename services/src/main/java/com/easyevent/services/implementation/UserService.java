@@ -26,7 +26,7 @@ public class UserService implements UserCrud<UserDto> {
 
     @Override
     public String add(UserDto userDto) {
-        return userRepository.save(userConverter.convert(userDto)).getId().toString();
+        return String.valueOf(userRepository.save(userConverter.convert(userDto)).getId());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UserService implements UserCrud<UserDto> {
 
     @Override
     public List<UserDto> getAll() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false)
+        return userRepository.findAll().stream()
                 .map(userEntity -> userConverter.convert(userEntity))
                 .collect(Collectors.toList());
 

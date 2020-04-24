@@ -1,9 +1,10 @@
 package com.easyevent.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -13,9 +14,10 @@ import java.util.stream.Collectors;
 @Table(name = "artists")
 @PrimaryKeyJoinColumn(name = "artist_id")
 @Data
-public class ArtistEntity extends UserEntity{
+@NoArgsConstructor
+public class ArtistEntity extends UserEntity {
 
-    @Column(name = "artist_id",unique = true, nullable = false)
+    @Column(name = "artist_id", unique = true, nullable = false)
     private UUID id;
 
     @Column(unique = true)
@@ -26,9 +28,9 @@ public class ArtistEntity extends UserEntity{
     private String description;
 
     @ManyToMany
-    @JoinTable (name="artists_events",
-            joinColumns=@JoinColumn (name="artist_id"),
-            inverseJoinColumns=@JoinColumn(name="event_id"))
+    @JoinTable(name = "artists_events",
+            joinColumns = @JoinColumn(name = "artist_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
     private List<EventEntity> eventEntities;
 
     @OneToMany(mappedBy = "artistEntity")
@@ -76,25 +78,25 @@ public class ArtistEntity extends UserEntity{
 //                .build();
 //    }
 
-    public List<Long> getEventIds(){
+    public List<Long> getEventIds() {
         return getEventEntities().stream()
                 .map(EventEntity::getId)
                 .collect(Collectors.toList());
     }
 
-    public List<String> getEventNames(){
+    public List<String> getEventNames() {
         return getEventEntities().stream()
                 .map(EventEntity::getName)
                 .collect(Collectors.toList());
     }
 
-    public  List<Long> getOfferIds(){
+    public List<Long> getOfferIds() {
         return getArtistOfferEntities().stream()
                 .map(ArtistOfferEntity::getId)
                 .collect(Collectors.toList());
     }
 
-    public  List<String> getOfferNames(){
+    public List<String> getOfferNames() {
         return getArtistOfferEntities().stream()
                 .map(ArtistOfferEntity::getName)
                 .collect(Collectors.toList());

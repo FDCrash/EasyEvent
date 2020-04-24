@@ -42,12 +42,12 @@ public class EventConverter {
                 .organizationEntities(
                         eventDto.getOrganizationIds().stream()
                                 .map(a ->
-                                    OrganizationEntity.organizationBuilder()
-                                            .userEntity(UserEntity.builder()
-                                                    .id(a)
-                                                    .build()
-                                            )
-                                            .build())
+                                        OrganizationEntity.organizationBuilder()
+                                                .userEntity(UserEntity.builder()
+                                                        .id(a)
+                                                        .build()
+                                                )
+                                                .build())
                                 .collect(Collectors.toList()))
                 .artistEntities(
                         eventDto.getArtistIds().stream()

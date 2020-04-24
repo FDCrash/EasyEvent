@@ -7,7 +7,7 @@ import com.easyevent.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserConverter {
+public class  UserConverter {
 
     public UserDto convert(UserEntity userEntity) {
         return UserDto.builder()

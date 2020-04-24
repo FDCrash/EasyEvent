@@ -48,7 +48,7 @@ public class UserEntity {
 
     private String phone;
 
-    public UserEntity getUser(){
+    public UserEntity getUser() {
         return this;
     }
 }

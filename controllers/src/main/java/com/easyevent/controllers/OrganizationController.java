@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Api
@@ -26,6 +28,14 @@ public class OrganizationController {
     @Autowired
     public OrganizationController(OrganizationService organizationService) {
         this.organizationService = organizationService;
+    }
+
+    @ApiOperation(value = "Add organization", nickname = "OrganizationController.addOrganization")
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Organization is adding")})
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addArtist(@RequestBody OrganizationDto organizationDto) {
+        Map id = Collections.singletonMap("id", organizationService.add(organizationDto));
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Gets all organizations", nickname = "OrganizationController.getAllOrganizations")

@@ -74,25 +74,25 @@ public class EventEntity {
         return Objects.hash(getId(), getName(), getStartDate(), getEndDate(), getDescription(), getCost(), getCreatedAt(), getExpiresAt());
     }
 
-    public List<UUID> getOrganizationIds(){
+    public List<UUID> getOrganizationIds() {
         return getOrganizationEntities().stream()
                 .map(OrganizationEntity::getId)
                 .collect(Collectors.toList());
     }
 
-    public List<String> getOrganizationNames(){
+    public List<String> getOrganizationNames() {
         return getOrganizationEntities().stream()
                 .map(OrganizationEntity::getName)
                 .collect(Collectors.toList());
     }
 
-    public List<UUID> getArtistIds(){
+    public List<UUID> getArtistIds() {
         return getArtistEntities().stream()
                 .map(ArtistEntity::getId)
                 .collect(Collectors.toList());
     }
 
-    public List<String> getArtistPseudonym(){
+    public List<String> getArtistPseudonym() {
         return getArtistEntities().stream()
                 .map(ArtistEntity::getPseudonym)
                 .collect(Collectors.toList());

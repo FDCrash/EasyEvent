@@ -1,19 +1,16 @@
 package com.easyevent.dto.base;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ArtistDto extends UserDto{
-
-    @JsonIgnore
-    private UUID id;
+@NoArgsConstructor
+public class ArtistDto extends UserDto {
 
     private String pseudonym;
 
@@ -32,17 +29,16 @@ public class ArtistDto extends UserDto{
     @Builder(builderMethodName = "artistBuilder")
     public ArtistDto(UserDto userDto, String pseudonym, String type, String description, List<Long> eventIds, List<String> eventName, List<Long> offerIds, List<String> offerNames) {
         super(userDto.getId(), userDto.getLogin(), userDto.getPassword(), userDto.getEmail(), userDto.getFirstName(), userDto.getLastName(), userDto.isRegistration(), userDto.getRole(), userDto.getPhone());
-        this.id = userDto.getId();
         this.pseudonym = pseudonym;
         this.type = type;
         this.description = description;
-        this.eventIds.addAll(eventIds);
-        this.eventName.addAll(eventName);
-        this.offerIds.addAll(offerIds);
-        this.offerNames.addAll(offerNames);
+        this.eventIds = eventIds;
+        this.eventName = eventName;
+        this.offerIds = offerIds;
+        this.offerNames = offerNames;
     }
 
-//    public UserDto getUser(){
+    //    public UserDto getUser(){
 //        return UserDto.builder()
 //                .id(getId())
 //                .login(getLogin())

@@ -12,9 +12,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public  class UserDto {
 
-    @JsonIgnore
     private UUID id;
 
     private String login;
@@ -34,7 +33,7 @@ public class UserDto {
     private String phone;
 
     @JsonIgnore
-    public UserDto getUser(){
+    public UserDto getUser() {
         return this;
     }
 }

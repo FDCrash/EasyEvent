@@ -1,6 +1,7 @@
 package com.easyevent.controllers;
 
 import com.easyevent.dto.base.UserDto;
+import com.easyevent.services.implementation.AuthenticationService;
 import com.easyevent.services.implementation.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,13 +23,14 @@ import java.util.UUID;
 @Api
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private PasswordEncoder passwordEncoder;
     private UserService userService;
 
     @Autowired
-    public UserController(PasswordEncoder passwordEncoder, UserService userService) {
+    public UserController(PasswordEncoder passwordEncoder, UserService userService, AuthenticationService authenticationService) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }

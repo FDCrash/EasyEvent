@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Api
 @RestController
@@ -25,6 +27,14 @@ public class ArtistOfferController {
     @Autowired
     public ArtistOfferController(ArtistOfferService artistOfferService) {
         this.artistOfferService = artistOfferService;
+    }
+
+    @ApiOperation(value = "Add offers", nickname = "OfferController.addOffer")
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Offers is adding")})
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addArtist(@RequestBody ArtistOfferDto artistOfferDto) {
+        Map id = Collections.singletonMap("id", artistOfferService.add(artistOfferDto));
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Gets all offers", nickname = "OfferController.getAllOffers")

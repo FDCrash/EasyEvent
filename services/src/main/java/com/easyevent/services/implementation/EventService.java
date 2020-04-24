@@ -18,14 +18,14 @@ public class EventService implements DocumentCrud<EventDto> {
     private EventRepository eventRepository;
 
     @Autowired
-    public EventService(EventConverter eventConverter,EventRepository eventRepository){
+    public EventService(EventConverter eventConverter, EventRepository eventRepository) {
         this.eventConverter = eventConverter;
         this.eventRepository = eventRepository;
     }
 
     @Override
     public String add(EventDto eventDto) {
-        return eventRepository.save(eventConverter.convert(eventDto)).toString();
+        return String.valueOf(eventRepository.save(eventConverter.convert(eventDto)).getId());
     }
 
     @Override
@@ -35,8 +35,8 @@ public class EventService implements DocumentCrud<EventDto> {
 
     @Override
     public List<EventDto> getAll() {
-        return StreamSupport.stream(eventRepository.findAll().spliterator(), false)
-                .map(userEntity -> eventConverter.convert(userEntity))
+        return eventRepository.findAll().stream()
+                .map(eventEntity -> eventConverter.convert(eventEntity))
                 .collect(Collectors.toList());
     }
 

@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Api
@@ -32,7 +34,7 @@ public class ArtistController {
     @ApiResponses(value = {@ApiResponse(code = 201, message = "Artist is adding")})
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> addArtist(@RequestBody ArtistDto artistDto) {
-        String id = artistService.add(artistDto);
+        Map id = Collections.singletonMap("id", artistService.add(artistDto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 

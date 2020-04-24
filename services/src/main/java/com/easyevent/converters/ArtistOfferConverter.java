@@ -9,9 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArtistOfferConverter {
 
-    public ArtistOfferDto convert(ArtistOfferEntity artistOfferEntity){
+    public ArtistOfferDto convert(ArtistOfferEntity artistOfferEntity) {
         return ArtistOfferDto.builder()
                 .id(artistOfferEntity.getId())
+                .name(artistOfferEntity.getName())
                 .description(artistOfferEntity.getDescription())
                 .cost(artistOfferEntity.getCost())
                 .artistId(artistOfferEntity.getArtistEntity().getId())
@@ -19,19 +20,20 @@ public class ArtistOfferConverter {
                 .build();
     }
 
-    public ArtistOfferEntity convert(ArtistOfferDto artistOfferDto){
+    public ArtistOfferEntity convert(ArtistOfferDto artistOfferDto) {
         return ArtistOfferEntity.builder()
                 .id(artistOfferDto.getId())
+                .name(artistOfferDto.getName())
                 .description(artistOfferDto.getDescription())
                 .cost(artistOfferDto.getCost())
                 .artistEntity(
                         ArtistEntity.artistBuilder()
-                        .userEntity(
-                                UserEntity.builder()
-                                .id(artistOfferDto.getArtistId())
+                                .userEntity(
+                                        UserEntity.builder()
+                                                .id(artistOfferDto.getArtistId())
+                                                .build()
+                                )
                                 .build()
-                        )
-                        .build()
                 )
                 .build();
     }

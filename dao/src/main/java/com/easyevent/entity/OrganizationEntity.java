@@ -2,6 +2,7 @@ package com.easyevent.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @Table(name = "organizations")
 @Data
 @PrimaryKeyJoinColumn(name = "organization_id")
+@NoArgsConstructor
 public class OrganizationEntity extends UserEntity {
 
     @Column(name = "organization_id", unique = true, nullable = false)

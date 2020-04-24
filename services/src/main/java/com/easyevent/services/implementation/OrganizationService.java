@@ -19,14 +19,14 @@ public class OrganizationService implements UserCrud<OrganizationDto> {
     private OrganizationRepository organizationRepository;
 
     @Autowired
-    public OrganizationService(OrganizationConverter organizationConverter, OrganizationRepository organizationRepository){
+    public OrganizationService(OrganizationConverter organizationConverter, OrganizationRepository organizationRepository) {
         this.organizationConverter = organizationConverter;
         this.organizationRepository = organizationRepository;
     }
 
     @Override
     public String add(OrganizationDto organizationDto) {
-        return organizationRepository.save(organizationConverter.convert(organizationDto)).toString();
+        return String.valueOf(organizationRepository.save(organizationConverter.convert(organizationDto)).getId());
     }
 
     @Override
@@ -36,8 +36,8 @@ public class OrganizationService implements UserCrud<OrganizationDto> {
 
     @Override
     public List<OrganizationDto> getAll() {
-        return StreamSupport.stream(organizationRepository.findAll().spliterator(), false)
-                .map(userEntity -> organizationConverter.convert(userEntity))
+        return organizationRepository.findAll().stream()
+                .map(organizationEntity -> organizationConverter.convert(organizationEntity))
                 .collect(Collectors.toList());
     }
 
