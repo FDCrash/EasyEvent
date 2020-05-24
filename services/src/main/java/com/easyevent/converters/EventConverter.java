@@ -7,12 +7,19 @@ import com.easyevent.entity.OrganizationEntity;
 import com.easyevent.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
 public class EventConverter {
 
     public EventDto convert(EventEntity eventEntity) {
+        Map<UUID, String> organizations = new HashMap<>();
+        eventEntity.getOrganizationEntities().forEach(organizationEntity -> organizations.put(organizationEntity.getId(), organizationEntity.getName()));
+        Map<UUID, String> artists = new HashMap<>();
+        eventEntity.getArtistEntities().forEach(artistEntity -> organizations.put(artistEntity.getId(), artistEntity.getPseudonym()));
         return EventDto.builder()
                 .id(eventEntity.getId())
                 .name(eventEntity.getName())
@@ -22,10 +29,8 @@ public class EventConverter {
                 .cost(eventEntity.getCost())
                 .createdAt(eventEntity.getCreatedAt())
                 .expiresAt(eventEntity.getExpiresAt())
-                .organizationIds(eventEntity.getOrganizationIds())
-                .organizationNames(eventEntity.getOrganizationNames())
-                .artistIds(eventEntity.getArtistIds())
-                .artistPseudonym(eventEntity.getArtistPseudonym())
+                .organizations(organizations)
+                .artists(artists)
                 .build();
     }
 
@@ -40,7 +45,7 @@ public class EventConverter {
                 .createdAt(eventDto.getCreatedAt())
                 .expiresAt(eventDto.getExpiresAt())
                 .organizationEntities(
-                        eventDto.getOrganizationIds().stream()
+                        eventDto.getOrganizations().keySet().stream()
                                 .map(a ->
                                         OrganizationEntity.organizationBuilder()
                                                 .userEntity(UserEntity.builder()
@@ -50,7 +55,7 @@ public class EventConverter {
                                                 .build())
                                 .collect(Collectors.toList()))
                 .artistEntities(
-                        eventDto.getArtistIds().stream()
+                        eventDto.getArtists().keySet().stream()
                                 .map(a ->
                                         ArtistEntity.artistBuilder()
                                                 .userEntity(UserEntity.builder()

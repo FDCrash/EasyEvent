@@ -5,6 +5,9 @@ import com.easyevent.entity.ArtistEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 public class ArtistConverter {
 
@@ -16,22 +19,28 @@ public class ArtistConverter {
     }
 
     public ArtistDto convert(ArtistEntity artistEntity) {
+        Map<Long, String> events = new HashMap<>();
+        artistEntity.getEventEntities().forEach(eventEntity -> {
+            events.put(eventEntity.getId(), eventEntity.getName());
+        });
+        Map<Long, String> offers = new HashMap<>();
+        artistEntity.getArtistOfferEntities().forEach(artistOfferEntity -> {
+           offers.put(artistOfferEntity.getId(), artistOfferEntity.getName());
+        });
         return ArtistDto.artistBuilder()
                 .userDto(userConverter.convert(artistEntity.getUser()))
-                .pseudonym(artistEntity.getPseudonym())
+                .name(artistEntity.getPseudonym())
                 .type(artistEntity.getType())
                 .description(artistEntity.getDescription())
-                .eventIds(artistEntity.getEventIds())
-                .eventName(artistEntity.getEventNames())
-                .offerIds(artistEntity.getOfferIds())
-                .offerNames(artistEntity.getOfferNames())
+                .events(events)
+                .offers(offers)
                 .build();
     }
 
     public ArtistEntity convert(ArtistDto artistDto) {
         return ArtistEntity.artistBuilder()
                 .userEntity(userConverter.convert(artistDto.getUser()))
-                .pseudonym(artistDto.getPseudonym())
+                .pseudonym(artistDto.getName())
                 .type(artistDto.getType())
                 .description(artistDto.getDescription())
 //                .eventEntities(

@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
@@ -19,17 +20,14 @@ public class OrganizationDto extends UserDto {
 
     private String description;
 
-    private List<Long> eventIds;
-
-    private List<String> eventName;
+    private Map<Long, String> events;
 
     @Builder(builderMethodName = "organizationBuilder")
-    public OrganizationDto(UserDto userDto, String name, String type, String description, List<Long> eventIds, List<String> eventName) {
+    public OrganizationDto(UserDto userDto, String name, String type, String description, Map<Long, String> events) {
         super(userDto.getId(), userDto.getLogin(), userDto.getPassword(), userDto.getEmail(), userDto.getFirstName(), userDto.getLastName(), userDto.isRegistration(), userDto.getRole(), userDto.getPhone());
         this.name = name;
         this.type = type;
         this.description = description;
-        this.eventIds = eventIds;
-        this.eventName = eventName;
+        this.events = events;
     }
 }

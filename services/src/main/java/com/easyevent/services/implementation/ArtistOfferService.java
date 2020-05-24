@@ -4,16 +4,11 @@ import com.easyevent.converters.ArtistOfferConverter;
 import com.easyevent.dao.ArtistOfferRepository;
 import com.easyevent.dto.base.ArtistOfferDto;
 import com.easyevent.services.DocumentCrud;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ArtistOfferService implements DocumentCrud<ArtistOfferDto> {

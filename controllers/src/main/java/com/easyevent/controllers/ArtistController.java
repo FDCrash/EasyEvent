@@ -53,7 +53,7 @@ public class ArtistController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Artist")})
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArtistDto> getArtist(@PathVariable("id") UUID id) {
-        ArtistDto artist = artistService.get(id);
+        ArtistDto artist = artistService.   get(id);
         if (artist == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

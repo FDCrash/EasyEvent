@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class OrganizationService implements UserCrud<OrganizationDto> {
@@ -44,5 +43,10 @@ public class OrganizationService implements UserCrud<OrganizationDto> {
     @Override
     public OrganizationDto get(UUID id) {
         return organizationConverter.convert(organizationRepository.findOne(id));
+    }
+
+    @Override
+    public OrganizationDto getByLogin(String login) {
+        return organizationConverter.convert(organizationRepository.findByLogin(login));
     }
 }

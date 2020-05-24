@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Data
@@ -31,12 +33,7 @@ public class EventDto {
 
     private String expiresAt;
 
-    private List<UUID> organizationIds;
+    private Map<UUID, String> organizations;
 
-    private List<String> organizationNames;
-
-    private List<UUID> artistIds;
-
-    private List<String> artistPseudonym;
-
+    private Map<UUID, String> artists;
 }

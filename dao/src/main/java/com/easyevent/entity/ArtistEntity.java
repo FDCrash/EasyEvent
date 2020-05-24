@@ -64,20 +64,6 @@ public class ArtistEntity extends UserEntity {
         this.artistOfferEntities = artistOfferEntities;
     }
 
-//    public UserEntity getUser(){
-//        return UserEntity.builder()
-//                .id(getId())
-//                .login(getLogin())
-//                .password(getPassword())
-//                .email(getEmail())
-//                .firstName(getFirstName())
-//                .lastName(getLastName())
-//                .registration(isRegistration())
-//                .role(getRole())
-//                .phone(getPhone())
-//                .build();
-//    }
-
     public List<Long> getEventIds() {
         return getEventEntities().stream()
                 .map(EventEntity::getId)

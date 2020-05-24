@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class EventEntity {
     private String name;
 
     @Column(name = "start_date")
+    @CreatedDate
     private Date startDate;
 
     @Column(name = "end_date")
@@ -37,6 +39,7 @@ public class EventEntity {
     private int cost;
 
     @Column(name = "created_at")
+    @CreatedDate
     private String createdAt;
 
     @Column(name = "expire_at")

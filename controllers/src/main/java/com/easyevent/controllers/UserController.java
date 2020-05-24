@@ -1,7 +1,6 @@
 package com.easyevent.controllers;
 
 import com.easyevent.dto.base.UserDto;
-import com.easyevent.services.implementation.AuthenticationService;
 import com.easyevent.services.implementation.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,14 +22,13 @@ import java.util.UUID;
 @Api
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "*")
 public class UserController {
 
     private PasswordEncoder passwordEncoder;
     private UserService userService;
 
     @Autowired
-    public UserController(PasswordEncoder passwordEncoder, UserService userService, AuthenticationService authenticationService) {
+    public UserController(PasswordEncoder passwordEncoder, UserService userService) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
@@ -62,6 +60,18 @@ public class UserController {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Get specific user", nickname = "UserController.getUser")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "User")})
+    @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDto> getCurrentUser() {
+        UserDto user = userService.getCurrent();
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        user.setPassword(null);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

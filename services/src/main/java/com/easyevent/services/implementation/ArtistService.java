@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ArtistService implements UserCrud<ArtistDto> {
@@ -44,5 +43,10 @@ public class ArtistService implements UserCrud<ArtistDto> {
     @Override
     public ArtistDto get(UUID id) {
         return artistConverter.convert(artistRepository.findOne(id));
+    }
+
+    @Override
+    public ArtistDto getByLogin(String login) {
+        return artistConverter.convert(artistRepository.findByLogin(login));
     }
 }
