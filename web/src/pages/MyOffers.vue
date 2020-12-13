@@ -1,6 +1,5 @@
 <template>
     <div class="content">
-        <create-offer></create-offer>
         <div class="container-fluid">
             <offer-card v-for="offer in offerData" :offer-data="offer"/>
         </div>
@@ -10,7 +9,7 @@
 import OfferCard from '../components/Cards/OfferCard'
 import CreateOffer from '../components/Modals/CreateOffer'
 
-var url = 'http://localhost:8081/offers'
+var url = 'http://localhost:8081/offers/'
 export default {
   components: {
     OfferCard,

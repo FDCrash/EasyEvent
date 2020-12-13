@@ -71,16 +71,11 @@
           </ul>
         </nav>
         <div class="copyright text-center">
-          &copy; Coded with
-          <i class="fa fa-heart heart" /> by
-          <a
-            href="https://binarcode.com"
-            target="_blank"
-          >BinarCode</a>.
+          &copy;
           Designed by <a
-            href="https://www.creative-tim.com/?ref=pdf-vuejs"
-            target="_blank"
-          >Creative Tim</a>.
+                href="https://github.com/FDCrash"
+                target="_blank"
+        >FD_Crash</a>.
         </div>
       </div>
     </footer>

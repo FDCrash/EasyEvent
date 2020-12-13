@@ -217,6 +217,14 @@ export default {
             })
         } else {
           this.dialog = false
+          this.$notifications.notify(
+            {
+              message: 'Регистрация прошла успешно, подтвердите почту!',
+              icon: 'nc-icon nc-app',
+              horizontalAlign: 'right',
+              verticalAlign: 'top',
+              type: 'success'
+            })
         }
       }, 200)
     },

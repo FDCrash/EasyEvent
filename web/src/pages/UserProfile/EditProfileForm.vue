@@ -51,7 +51,7 @@
         <div v-show="userData.registration === true" class="col-md-6">
           <v-tooltip top>
             <template  v-slot:activator="{ on }">
-              <v-btn v-on="on" class="text-success" block style="margin-top: 28px">Почта потдверждена</v-btn>
+              <v-btn v-on="on" class="text-success" block style="margin-top: 28px" @click="onsubmit">Почта потдверждена</v-btn>
             </template>
             <span>Действий не требуется</span>
           </v-tooltip>
@@ -142,6 +142,16 @@ export default {
   methods: {
     updateProfile () {
       alert('Your data: ' + JSON.stringify(this.user))
+    },
+    onsubmit () {
+      this.$notifications.notify(
+        {
+          message: 'Организатор <u>belski</u> принял вашу заявку',
+          icon: 'nc-icon nc-app',
+          horizontalAlign: 'right',
+          verticalAlign: 'top',
+          type: 'info'
+        })
     }
   }
 }

@@ -16,8 +16,10 @@ import SignIn from './Security/Modal/SignIn.vue'
 import LogOut from './Security/LogOut/LogOut'
 
 import SidebarPlugin from './SidebarPlugin'
+import AddToEvent from './Modals/AddToEvent'
 
 const components = {
+  AddToEvent,
   LogOut,
   SignUp,
   SignIn,

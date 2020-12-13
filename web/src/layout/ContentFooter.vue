@@ -4,19 +4,14 @@
       <nav>
         <ul class="footer-menu">
           <li>
-            <router-link :to="{path:'/overview'}">
-              Dashboard
+            <router-link :to="{path:'/home'}">
+              Главная
             </router-link>
           </li>
         </ul>
       </nav>
       <div class="copyright text-center">
-        &copy; Coded with
-        <i class="fa fa-heart heart" /> by
-        <a
-          href="https://binarcode.com"
-          target="_blank"
-        >BinarCode</a>.
+        &copy;
         Designed by <a
           href="https://github.com/FDCrash"
           target="_blank"

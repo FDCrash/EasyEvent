@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Api
 @RestController
@@ -59,9 +60,20 @@ public class ArtistOfferController {
         return new ResponseEntity<>(offer, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Gets offers by artist", nickname = "OfferController.getOfferByArtist")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Offer")})
+    @GetMapping(value = "artist/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ArtistOfferDto>> getOfferByArtist(@PathVariable("id") UUID id) {
+        List<ArtistOfferDto> offer = artistOfferService.getByArtist(id);
+        if (offer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(offer, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "Delete offer", nickname = "OfferController.deleteOffer")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Offer is deleted")})
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> deleteOffer(@PathVariable("id") long id) {
         artistOfferService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -8,7 +8,9 @@
                 <div class="col-1 text">
                 <v-tooltip  bottom>
                     <template  v-slot:activator="{ on }">
-                        <v-icon class="text-warning" style="font-size: 35px; margin-top: 10px" v-on="on">nc-icon nc-bullet-list-67</v-icon>
+                        <v-btn @click="show=!show" icon style="margin-top: 8px; outline: none">
+                            <v-icon class="text-warning" style="font-size: 35px;" v-on="on">nc-icon nc-bullet-list-67</v-icon>
+                        </v-btn>
                     </template>
                     <span>Подробнее о мероприятии</span>
                 </v-tooltip>
@@ -20,8 +22,8 @@
                     <div v-for="(value, key) in eventData.organizations">
                         <v-tooltip top>
                             <template  v-slot:activator="{ on }">
-                                <v-btn x-small @click="onUserClick(key)" class="rounded-circle" src="../../../public/img/lol.jpg" style="width: 40px; height: 40px">
-                                <v-img v-on="on" class="rounded-circle" src="../../../public/img/lol.jpg" style="size: 35px; width: 40px; height: 40px"/>
+                                <v-btn x-small @click="onUserClick(key)" class="rounded-circle" style="width: 40px; height: 40px; outline: none;">
+                                <v-img v-on="on" class="rounded-circle" v-bind:src="require('../../../public/img/faces/' + key + '.jpg')" style="size: 35px; width: 40px; height: 40px"/>
                                 </v-btn>
                             </template>
                             <span>{{value}}</span>
@@ -33,8 +35,8 @@
                 <div v-for="(value, key) in eventData.artists">
                     <v-tooltip top>
                         <template  v-slot:activator="{ on }">
-                            <v-btn x-small @click="onUserClick" class="rounded-circle" src="../../../public/img/lol.jpg" style="width: 40px; height: 40px; margin-right: 20px">
-                                <v-img v-on="on"  class="rounded-circle" src="../../../public/img/lol.jpg" style="size: 35px; width: 40px; height: 40px"/>
+                            <v-btn x-small @click="onUserClick(key)" class="rounded-circle" src="../../../public/img/lol.jpg" style="width: 40px; height: 40px; margin-right: 20px">
+                                <v-img v-on="on"  class="rounded-circle" v-bind:src="require('../../../public/img/faces/' + key + '.jpg')" style="size: 35px; width: 40px; height: 40px"/>
                             </v-btn>
                         </template>
                         <span>{{value}}</span>
@@ -43,12 +45,39 @@
             </div>
             <br>
         </div>
+        <div v-if="show" class="row">
+            <div class="card-body" style="padding-left: 50px">
+                <span>Информация о мероприятии:</span>
+                <br>
+                <span>{{eventData.description}}</span>
+            </div>
+            <div class="card-body" style="padding-left: 135px">
+                <span>Гонорар за мероприятие:</span>
+                <br>
+                <span>{{eventData.cost}} $</span>
+            </div>
+            <div style="padding-top: 20px; margin-right: 20px">
+                <send-offer></send-offer>
+            </div>
+            <div style="padding-right: 30px" v-if="$route.name === 'My Events'">
+                <v-btn style="outline: none" >Изменить</v-btn><br>
+            </div>
+        </div>
     </div>
 </template>
 <script>
+import SendOffer from '../Modals/SendOffer'
 export default {
+  components: {
+    SendOffer
+  },
   name: 'EventCard',
   props: ['eventData'],
+  data () {
+    return {
+      show: false
+    }
+  },
   methods: {
     onUserClick (id) {
       if (id !== this.$store.getters.ID) {

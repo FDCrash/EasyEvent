@@ -19,27 +19,19 @@
       </sidebar-link>
       <sidebar-link v-show="$store.getters.TOKEN != null" to="/offers">
         <i class="nc-icon nc-notes" />
-        <p>Офферы артистов</p>
+        <p>Заявки артистов</p>
       </sidebar-link>
-      <sidebar-link to="/table-list">
+      <sidebar-link v-show="$store.getters.TOKEN != null" to="/my-events">
         <i class="nc-icon nc-chart-pie-35" />
-        <p>Table list</p>
+        <p>Мои мероприятия</p>
       </sidebar-link>
-      <sidebar-link to="/typography">
+      <sidebar-link v-show="$store.getters.TOKEN != null && $store.getters.ROLES === 'ORGANIZATION'" to="/accepted-offers">
         <i class="nc-icon nc-paper-2" />
-        <p>Typography</p>
+        <p>Принятые заявки</p>
       </sidebar-link>
-      <sidebar-link to="/icons">
-        <i class="nc-icon nc-atom" />
-        <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/maps">
-        <i class="nc-icon nc-pin-3" />
-        <p>Maps</p>
-      </sidebar-link>
-      <sidebar-link to="/notifications">
-        <i class="nc-icon nc-bell-55" />
-        <p>Notifications</p>
+      <sidebar-link v-show="$store.getters.TOKEN != null && $store.getters.ROLES === 'ARTIST'" to="/my-offers">
+        <i class="nc-icon nc-paper-2" />
+        <p>Мои заявки</p>
       </sidebar-link>
     </side-bar>
     <div class="main-panel">
