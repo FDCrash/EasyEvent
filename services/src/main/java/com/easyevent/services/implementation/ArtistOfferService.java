@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,5 +43,12 @@ public class ArtistOfferService implements DocumentCrud<ArtistOfferDto> {
     @Override
     public ArtistOfferDto get(long id) {
         return artistOfferConverter.convert(artistOfferRepository.findOne(id));
+    }
+
+
+    public List<ArtistOfferDto> getByArtist(UUID id) {
+        return artistOfferRepository.findAllByArtistEntityId(id).stream()
+                .map(userEntity -> artistOfferConverter.convert(userEntity))
+                .collect(Collectors.toList());
     }
 }

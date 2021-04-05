@@ -19,7 +19,7 @@ public class EventConverter {
         Map<UUID, String> organizations = new HashMap<>();
         eventEntity.getOrganizationEntities().forEach(organizationEntity -> organizations.put(organizationEntity.getId(), organizationEntity.getName()));
         Map<UUID, String> artists = new HashMap<>();
-        eventEntity.getArtistEntities().forEach(artistEntity -> organizations.put(artistEntity.getId(), artistEntity.getPseudonym()));
+        eventEntity.getArtistEntities().forEach(artistEntity -> artists.put(artistEntity.getId(), artistEntity.getPseudonym()));
         return EventDto.builder()
                 .id(eventEntity.getId())
                 .name(eventEntity.getName())

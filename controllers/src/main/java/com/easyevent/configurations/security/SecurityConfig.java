@@ -25,9 +25,13 @@ import org.springframework.security.oauth2.client.token.grant.code.Authorization
 import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.Filter;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -66,19 +70,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources",
                         "/swagger-resources/configuration/security",
                         "/swagger-ui.html",
-                        "/webjars/**")
+                        "/webjars/**",
+                        "/security/auth",
+                        "/security")
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/google.html", "/security/auth", "/security", "/security/google").permitAll()
-                .antMatchers("/artists").hasAuthority("ARTIST")
-                .antMatchers("/events").authenticated()
+                .antMatchers("/artists", "/events", "/offers", "/organizations").authenticated()
+                .antMatchers("/users").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider))
                 .and()
                 .csrf()
                 .disable();
-        http.httpBasic().disable();
+        http.httpBasic().disable().cors();
         http.addFilterBefore(ssoFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -105,6 +111,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authorizationCodeResourceDetails.setClientAuthenticationScheme(AuthenticationScheme.form);
         authorizationCodeResourceDetails.setScope(googleConfig.getScope());
         return authorizationCodeResourceDetails;
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Collections.singletonList("*"));
+        configuration.setAllowedHeaders(Collections.singletonList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean

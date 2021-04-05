@@ -6,14 +6,12 @@
       alt="..."
     >
     <div class="author">
-        <img
+        <img v-bind:src="require('../../../public/img/faces/'+userData.id + '.jpg')"
           class="avatar border-gray"
-          src="../../../public/img/faces/face-3.jpg"
           alt="..."
         >
         <p class="title" >{{userData.firstName}} {{userData.lastName}}<br>
           <p class="title">{{userData.login}}</p>
-        </p>
     </div>
     <div v-show="userData.role === 'ORGANIZATION'">
       <p class="description text-center">Организация: {{userData.name}}</p>

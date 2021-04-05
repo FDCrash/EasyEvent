@@ -6,7 +6,7 @@
     >
         <template v-slot:activator="{ on }">
             <div class="container-fluid align-center justify-center">
-                <v-btn v-show="$store.getters.ROLES === 'ARTIST' || $store.getters.ROLES === 'ADMIN'" v-on="on" block>Создать заявку</v-btn>
+                <v-btn style="outline: none" v-show="$store.getters.ROLES === 'ARTIST' || $store.getters.ROLES === 'ADMIN'" v-on="on" block>Создать заявку</v-btn>
                 <br>
             </div>
         </template>
@@ -110,6 +110,14 @@ export default {
             })
         } else {
           this.dialog = false
+          this.$notifications.notify(
+            {
+              message: 'Заявка создана успешно',
+              icon: 'nc-icon nc-app',
+              horizontalAlign: 'right',
+              verticalAlign: 'top',
+              type: 'success'
+            })
         }
       }, 200)
     }

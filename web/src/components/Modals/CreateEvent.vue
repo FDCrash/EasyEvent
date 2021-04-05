@@ -6,7 +6,7 @@
     >
         <template v-slot:activator="{ on }">
             <div class="container-fluid align-center justify-center">
-                <v-btn v-show="$store.getters.ROLES === 'ORGANIZATION' || $store.getters.ROLES === 'ADMIN'" v-on="on" block>Создать мероприятие</v-btn>
+                <v-btn style="outline: none" v-show="$store.getters.ROLES === 'ORGANIZATION' || $store.getters.ROLES === 'ADMIN'" v-on="on" block>Создать мероприятие</v-btn>
                 <br>
             </div>
         </template>
@@ -138,27 +138,21 @@ export default {
       this.createEvent()
     },
     createEvent () {
-      var error
       var responseData
       this.axios.post(url, this.eventData).then(function (response) {
         responseData = response.data
         if (responseData) {}
-      }).catch(function (err) {
-        error = err.response.data.errorMessage
       })
       setTimeout(() => {
-        if (error !== null) {
-          this.$notifications.notify(
-            {
-              message: error,
-              icon: 'nc-icon nc-app',
-              horizontalAlign: 'right',
-              verticalAlign: 'top',
-              type: 'danger'
-            })
-        } else {
-          this.dialog = false
-        }
+        this.dialog = false
+        this.$notifications.notify(
+          {
+            message: 'Мероприятие создано успешно',
+            icon: 'nc-icon nc-app',
+            horizontalAlign: 'right',
+            verticalAlign: 'top',
+            type: 'success'
+          })
       }, 200)
     }
   }

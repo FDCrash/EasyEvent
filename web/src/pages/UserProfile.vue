@@ -6,7 +6,7 @@
           <edit-profile-form v-bind:userData="user" />
         </div>
         <div v-else-if="$route.params.id !== 'current' && this.user.role === 'ORGANIZATION'" class="col-md-8">
-          <edit-profile-form v-bind:userData="user" />
+          <event-card v-bind:userData="user" />
         </div>
         <div class="col-md-4">
           <user-card v-bind:userData="user"/>
@@ -18,13 +18,15 @@
 <script>
 import EditProfileForm from './UserProfile/EditProfileForm.vue'
 import UserCard from './UserProfile/UserCard.vue'
+import EventCard from '../components/Cards/EventCard'
 var userUrl = 'http://localhost:8081/users/'
 var artistUrl = 'http://localhost:8081/artists/'
 var organizationUrl = 'http://localhost:8081/organizations/'
 export default {
   components: {
     EditProfileForm,
-    UserCard
+    UserCard,
+    EventCard
   },
   props: ['userId', 'from'],
   data () {

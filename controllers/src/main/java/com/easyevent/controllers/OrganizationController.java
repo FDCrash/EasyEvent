@@ -1,6 +1,8 @@
 package com.easyevent.controllers;
 
+import com.easyevent.dto.base.ArtistOfferDto;
 import com.easyevent.dto.base.OrganizationDto;
+import com.easyevent.services.implementation.EventService;
 import com.easyevent.services.implementation.OrganizationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,10 +26,12 @@ import java.util.UUID;
 public class OrganizationController {
 
     private OrganizationService organizationService;
+    private EventService eventService;
 
     @Autowired
-    public OrganizationController(OrganizationService organizationService) {
+    public OrganizationController(OrganizationService organizationService, EventService eventService) {
         this.organizationService = organizationService;
+        this.eventService = eventService;
     }
 
     @ApiOperation(value = "Add organization", nickname = "OrganizationController.addOrganization")

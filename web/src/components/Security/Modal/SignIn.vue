@@ -107,6 +107,7 @@ export default {
         localStorage.setItem('access_token', responseData.token)
         localStorage.setItem('role', responseData.role)
         localStorage.setItem('id', responseData.id)
+        this.changeCondition(responseData)
       }).catch(function (err) {
         error = err.response.data.errorMessage
       })
@@ -121,7 +122,7 @@ export default {
               type: 'danger'
             })
         } else {
-          this.changeCondition(responseData)
+
         }
       }, 200)
     },

@@ -44,7 +44,7 @@ public class AuthenticationController {
 
     @ApiOperation(value = "Register user", nickname = "AuthenticationController.registerUser")
     @ApiResponses(value = {@ApiResponse(code = 201, message = "User registration")})
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> registerUser(@RequestBody UserRegisterDto userDto) {
         Map id = Collections.singletonMap("id", userService.register(userDto));
         return new ResponseEntity<>(id, HttpStatus.CREATED);
