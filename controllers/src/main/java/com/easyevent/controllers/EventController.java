@@ -1,6 +1,8 @@
 package com.easyevent.controllers;
 
+import com.easyevent.dto.base.ArtistOfferDto;
 import com.easyevent.dto.base.EventDto;
+import com.easyevent.services.implementation.ArtistOfferService;
 import com.easyevent.services.implementation.EventService;
 import com.easyevent.services.implementation.OrganizationService;
 import io.swagger.annotations.Api;
@@ -18,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Api
 @RestController
@@ -26,11 +29,13 @@ public class EventController {
 
     private EventService eventService;
     private OrganizationService organizationService;
+    private ArtistOfferService artistOfferService;
 
     @Autowired
-    public EventController(EventService eventService, OrganizationService organizationService) {
+    public EventController(EventService eventService, OrganizationService organizationService, ArtistOfferService artistOfferService) {
         this.eventService = eventService;
         this.organizationService = organizationService;
+        this.artistOfferService = artistOfferService;
     }
 
     @ApiOperation(value = "Add events", nickname = "EventController.addEvent")
@@ -45,11 +50,19 @@ public class EventController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Events")})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EventDto>> getAllEvents() {
-        List<EventDto> event = eventService.getAll();
-        if (CollectionUtils.isEmpty(event)) {
+        List<EventDto> events = eventService.getAll();
+        events.forEach(event -> {
+            int sum = 0;
+            List<Integer> cost = artistOfferService.getByArtists(event.getArtists().keySet()).stream().map(ArtistOfferDto::getCost).collect(Collectors.toList());
+            for(Integer x: cost) {
+                sum += x;
+            }
+            event.setSummaryCost(sum);
+        });
+        if (CollectionUtils.isEmpty(events)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(event, HttpStatus.OK);
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Get specific event", nickname = "EventController.getEvent")

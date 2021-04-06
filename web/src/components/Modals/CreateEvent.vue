@@ -127,7 +127,8 @@ export default {
         description: null,
         cost: null,
         organizations: {},
-        artists: {}
+        artists: {},
+        summaryCost: null
       },
       dialog: false
     }

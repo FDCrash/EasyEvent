@@ -56,6 +56,11 @@
                 <br>
                 <span>{{eventData.cost}} $</span>
             </div>
+            <div class="card-body" style="padding-left: 135px">
+                <span>Итоговая стоимость выступления<br> всех артистов :</span>
+                <br>
+                <span>{{eventData.summaryCost}} $</span>
+            </div>
             <div style="padding-top: 20px; margin-right: 20px">
                 <send-offer></send-offer>
             </div>

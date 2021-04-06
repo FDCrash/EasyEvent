@@ -36,4 +36,6 @@ public class EventDto {
     private Map<UUID, String> organizations;
 
     private Map<UUID, String> artists;
+
+    private int summaryCost;
 }
