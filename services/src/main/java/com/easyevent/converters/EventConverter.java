@@ -7,9 +7,7 @@ import com.easyevent.entity.OrganizationEntity;
 import com.easyevent.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -44,7 +42,7 @@ public class EventConverter {
                 .cost(eventDto.getCost())
                 .createdAt(eventDto.getCreatedAt())
                 .expiresAt(eventDto.getExpiresAt())
-                .organizationEntities(
+                .organizationEntities(eventDto.getOrganizations() == null ? null :
                         eventDto.getOrganizations().keySet().stream()
                                 .map(a ->
                                         OrganizationEntity.organizationBuilder()
@@ -54,7 +52,7 @@ public class EventConverter {
                                                 )
                                                 .build())
                                 .collect(Collectors.toList()))
-                .artistEntities(
+                .artistEntities(eventDto.getArtists() == null ? null :
                         eventDto.getArtists().keySet().stream()
                                 .map(a ->
                                         ArtistEntity.artistBuilder()

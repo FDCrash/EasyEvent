@@ -46,6 +46,22 @@ public class EventController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Add artists", nickname = "EventController.addArtist")
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Artists is adding")})
+    @PostMapping(value = "/addArtist", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addArtist(@RequestParam long uuid, @RequestParam UUID artistId) {
+        Map id = Collections.singletonMap("id", eventService.addArtist(artistId, uuid));
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
+
+    @ApiOperation(value = "Add organizations", nickname = "EventController.addOrganizations")
+    @ApiResponses(value = {@ApiResponse(code = 201, message = "Organization is adding")})
+    @PostMapping(value = "/addOrganization", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> addOrganization(@RequestParam long uuid, @RequestParam UUID organizationId) {
+        Map id = Collections.singletonMap("id", eventService.addOrganization(organizationId, uuid));
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
+
     @ApiOperation(value = "Gets all events", nickname = "EventController.getAllEvents")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Events")})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

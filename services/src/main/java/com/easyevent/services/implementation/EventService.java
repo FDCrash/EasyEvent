@@ -1,8 +1,9 @@
 package com.easyevent.services.implementation;
 
 import com.easyevent.converters.EventConverter;
+import com.easyevent.dao.ArtistRepository;
 import com.easyevent.dao.EventRepository;
-import com.easyevent.dto.base.ArtistOfferDto;
+import com.easyevent.dao.OrganizationRepository;
 import com.easyevent.dto.base.EventDto;
 import com.easyevent.entity.ArtistEntity;
 import com.easyevent.entity.EventEntity;
@@ -23,17 +24,35 @@ public class EventService implements DocumentCrud<EventDto> {
     private EventConverter eventConverter;
     private EventRepository eventRepository;
     private ArtistOfferService artistOfferService;
+    private ArtistRepository artistRepository;
+    private OrganizationRepository organizationRepository;
 
     @Autowired
-    public EventService(EventConverter eventConverter, EventRepository eventRepository, ArtistOfferService artistOfferService) {
+    public EventService(EventConverter eventConverter, EventRepository eventRepository,
+                        ArtistOfferService artistOfferService, ArtistRepository artistRepository,
+                        OrganizationRepository organizationRepository) {
         this.eventConverter = eventConverter;
         this.eventRepository = eventRepository;
         this.artistOfferService = artistOfferService;
+        this.artistRepository = artistRepository;
+        this.organizationRepository = organizationRepository;
     }
 
     @Override
     public String add(EventDto eventDto) {
         return String.valueOf(eventRepository.save(eventConverter.convert(eventDto)).getId());
+    }
+
+    public String addArtist(UUID artistIds, long uuid) {
+        EventEntity eventEntity = eventRepository.findOne(uuid);
+        eventEntity.getArtistEntities().add(artistRepository.findOne(artistIds));
+        return String.valueOf(eventRepository.save(eventEntity).getId());
+    }
+
+    public String addOrganization(UUID organizationId, long uuid) {
+        EventEntity eventEntity = eventRepository.findOne(uuid);
+        eventEntity.getOrganizationEntities().add(organizationRepository.findOne(organizationId));
+        return String.valueOf(eventRepository.save(eventEntity).getId());
     }
 
     @Override
